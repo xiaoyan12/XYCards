@@ -242,17 +242,31 @@
 }
 //判断btn位置
 -(void)judgeButtonPosition:(UIImageView *)imageView{
-    
+    NSMutableArray *mArr = [NSMutableArray array];
+    [mArr removeAllObjects];
     if (imageView.frame.origin.y != 70) {
         [UIView animateWithDuration:0.15 animations:^{
             imageView.frame = CGRectMake(imageView.frame.origin.x, 70, btnW, btnH);
         }];
         
-        [self.reelect setBackgroundImage:[UIImage imageNamed:@"bt_gray_bg"] forState:UIControlStateNormal];
-        self.reelect.userInteractionEnabled = NO;
+        [self.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj isKindOfClass:[UIImageView class]]) {
+                UIImageView *image = obj;
+                //判断牌上升的有多少
+                if (image.frame.origin.y == 55) {
+                    [mArr addObject:image];
+                }
+            }
+        }];
         
-        [self.playHand setBackgroundImage:[UIImage imageNamed:@"bt_gray_bg"] forState:UIControlStateNormal];
-        self.playHand.userInteractionEnabled = NO;
+        if (mArr.count == 0) {
+            [self.reelect setBackgroundImage:[UIImage imageNamed:@"bt_gray_bg"] forState:UIControlStateNormal];
+            self.reelect.userInteractionEnabled = NO;
+            
+            [self.playHand setBackgroundImage:[UIImage imageNamed:@"bt_gray_bg"] forState:UIControlStateNormal];
+            self.playHand.userInteractionEnabled = NO;
+            
+        }
         
     }else{
         [UIView animateWithDuration:0.15 animations:^{
