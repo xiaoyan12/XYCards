@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "XYView.h"
 
 @interface ViewController ()
 
@@ -16,6 +17,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.view.backgroundColor = [UIColor blueColor];
+    
+    XYView *view = [[XYView alloc]init];
+    view.frame = CGRectMake(0, (self.view.frame.size.height) - 170, self.view.frame.size.width, 170);
+    view.backgroundColor = [UIColor cyanColor];
+    [self.view addSubview:view];
+
     // Do any additional setup after loading the view, typically from a nib.
 }
 
